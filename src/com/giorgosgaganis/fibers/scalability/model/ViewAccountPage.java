@@ -10,7 +10,8 @@ public class ViewAccountPage {
     public String render(String accountNumber) {
         String accountInformation = null;
         for (int i = 0; i < 5; i++) {
-            accountInformation = externalService.getAccountInfo(accountNumber);
+            accountInformation =
+                    externalService.getAccountInfo(accountNumber);
         }
 
         return "<html>" + accountInformation + "</html>";

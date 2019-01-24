@@ -8,7 +8,8 @@ public class ExternalService {
     private static final int TIMEOUT_MINUTES = 4;
     private static final long RESPONSE_MILLIS = 100L;
 
-    AtomicInteger invocationCounter = new AtomicInteger(0);
+    private final AtomicInteger invocationCounter =
+            new AtomicInteger(0);
 
     public String getAccountInfo(String accountNumber) {
         try {
@@ -16,6 +17,7 @@ public class ExternalService {
 
                 long timeOutMillis = Duration.ofMinutes(TIMEOUT_MINUTES)
                         .toMillis();
+
                 Thread.sleep(timeOutMillis);
             } else {
                 Thread.sleep(RESPONSE_MILLIS);
