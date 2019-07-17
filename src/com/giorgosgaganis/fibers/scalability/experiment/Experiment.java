@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Experiment {
 
-    public static final int REQUESTS_PER_SECOND = 100;
-    AtomicLong replyCounter = new AtomicLong(0);
+    private static final int REQUESTS_PER_SECOND = 100;
+    private AtomicLong replyCounter = new AtomicLong(0);
 
     private final Runner runner;
 
@@ -21,13 +21,12 @@ public class Experiment {
     private void runExperimentWithRunner(Runner runner,
                                          ViewAccountPage viewAccountPage) {
 
-
         while (!Thread.interrupted()) {
 
             Runnable runnable = () -> {
 
-                Long randomLong = Long.valueOf(new Random().nextLong());
-                String accountNumber = randomLong.toString();
+                long randomLong = new Random().nextLong();
+                String accountNumber = Long.toString(randomLong);
 
                 viewAccountPage.render(accountNumber);
                 replyCounter.incrementAndGet();
@@ -77,11 +76,6 @@ public class Experiment {
     }
 
     private ViewAccountPage setup() {
-        ExternalService externalService = new ExternalService();
-        ViewAccountPage viewAccountPage =
-                new ViewAccountPage(externalService);
-
-        return viewAccountPage;
-
+        return new ViewAccountPage(new ExternalService());
     }
 }
